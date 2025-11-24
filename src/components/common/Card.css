@@ -1,0 +1,161 @@
+/* Card Base Styles */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base) var(--transition-ease);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Variants */
+/* Elevated variant - uses box shadow for depth */
+.card--elevated {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.card--elevated.card--interactive:hover:not(.card--disabled) {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Outlined variant - uses border only */
+.card--outlined {
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+
+.card--outlined.card--interactive:hover:not(.card--disabled) {
+  border-color: var(--color-primary-400);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Flat variant - minimal styling */
+.card--flat {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.card--flat.card--interactive:hover:not(.card--disabled) {
+  background-color: var(--color-neutral-50);
+}
+
+/* Interactive States */
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:not(.card--disabled):active {
+  transform: scale(0.99);
+}
+
+/* Disabled State */
+.card--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Padding Variants */
+.card--padding-none {
+  padding: 0;
+}
+
+.card--padding-small {
+  padding: var(--spacing-3);
+}
+
+.card--padding-medium {
+  padding: var(--spacing-4);
+}
+
+.card--padding-large {
+  padding: var(--spacing-6);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.card-header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-header-action {
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-1) 0;
+  line-height: var(--line-height-tight);
+}
+
+.card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+/* Card Body */
+.card-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.card-footer--end {
+  justify-content: flex-end;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .card--padding-small {
+    padding: var(--spacing-4);
+  }
+
+  .card--padding-medium {
+    padding: var(--spacing-5);
+  }
+
+  .card--padding-large {
+    padding: var(--spacing-8);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Focus Visible for Interactive Cards */
+.card--interactive:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Nested Cards - reduce padding */
+.card .card {
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+}
