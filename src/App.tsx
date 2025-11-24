@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import type { WritingMode } from './types'
+import { WritingProvider } from './contexts'
 import { MainLayout, Header, Sidebar, Footer } from './components/layout'
 import type { WritingStats } from './components/layout'
 import { TextEditor } from './components/features'
-import { useTextAnalysis } from './hooks'
+import { useTextAnalysis, useWritingMode } from './hooks'
 import './App.css'
 
-function App() {
-  const [writingMode, setWritingMode] = useState<WritingMode>('casual')
-  const [text, setText] = useState('')
+/**
+ * Main app content component
+ * Uses WritingContext for state management
+ */
+function AppContent() {
+  const { currentMode, text, setText } = useWritingMode()
 
   // Get real-time text analysis
   const textStats = useTextAnalysis(text)
@@ -23,12 +25,7 @@ function App() {
 
   return (
     <MainLayout
-      header={
-        <Header
-          writingMode={writingMode}
-          onWritingModeChange={setWritingMode}
-        />
-      }
+      header={<Header />}
       sidebar={<Sidebar stats={stats} />}
       footer={<Footer />}
     >
@@ -37,13 +34,24 @@ function App() {
         <TextEditor
           value={text}
           onChange={setText}
-          mode={writingMode}
+          mode={currentMode}
           minHeight={400}
           maxHeight={800}
           autoFocus
         />
       </section>
     </MainLayout>
+  )
+}
+
+/**
+ * App component with context provider
+ */
+function App() {
+  return (
+    <WritingProvider initialMode="casual" initialText="">
+      <AppContent />
+    </WritingProvider>
   )
 }
 
