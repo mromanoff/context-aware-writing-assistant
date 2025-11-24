@@ -1,0 +1,160 @@
+/* Text Editor Container */
+.text-editor {
+  position: relative;
+  width: 100%;
+}
+
+/* Auto-save Indicator */
+.text-editor-autosave {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  transition: all var(--transition-fast) var(--transition-ease);
+  pointer-events: none;
+}
+
+.text-editor-autosave-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+}
+
+.text-editor-autosave-label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Auto-save Status Variants */
+.text-editor-autosave--saving {
+  color: var(--color-primary-700);
+  border: 1px solid var(--color-primary-200);
+}
+
+.text-editor-autosave--saved {
+  color: var(--color-success-700);
+  border: 1px solid var(--color-success-200);
+}
+
+.text-editor-autosave--error {
+  color: var(--color-error-700);
+  border: 1px solid var(--color-error-200);
+}
+
+/* Textarea */
+.text-editor-textarea {
+  width: 100%;
+  padding: var(--spacing-4);
+  font-family: var(--font-family-base);
+  font-size: 16px; /* 16px minimum for better mobile experience */
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  resize: vertical;
+  overflow-y: auto;
+  transition: all var(--transition-fast) var(--transition-ease);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Focus State */
+.text-editor-textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-md), 0 0 0 3px var(--color-primary-100);
+}
+
+/* Hover State */
+.text-editor-textarea:hover:not(:disabled) {
+  border-color: var(--color-primary-300);
+}
+
+/* Disabled State */
+.text-editor-textarea:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Placeholder */
+.text-editor-textarea::placeholder {
+  color: var(--color-text-tertiary);
+  opacity: 0.6;
+}
+
+/* Custom Scrollbar for Textarea */
+.text-editor-textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+.text-editor-textarea::-webkit-scrollbar-track {
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-md);
+}
+
+.text-editor-textarea::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-neutral-100);
+}
+
+.text-editor-textarea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-400);
+}
+
+/* Firefox Scrollbar */
+.text-editor-textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-300) var(--color-neutral-100);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .text-editor-textarea {
+    padding: var(--spacing-6);
+    font-size: 18px; /* Larger font on desktop */
+  }
+
+  .text-editor-autosave {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-editor-textarea {
+    font-size: 18px;
+  }
+}
+
+/* Selection Styling */
+.text-editor-textarea::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+.text-editor-textarea::-moz-selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+/* Reduce motion for animations */
+@media (prefers-reduced-motion: reduce) {
+  .text-editor-textarea,
+  .text-editor-autosave {
+    transition: none;
+  }
+}
