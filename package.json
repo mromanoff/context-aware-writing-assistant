@@ -1,0 +1,34 @@
+{
+  "name": "context-aware-writing-assistant",
+  "version": "1.0.0",
+  "description": "Context-aware writing assistant with real-time suggestions",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mromanoff/context-aware-writing-assistant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mromanoff/context-aware-writing-assistant/issues"
+  },
+  "homepage": "https://github.com/mromanoff/context-aware-writing-assistant#readme",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}

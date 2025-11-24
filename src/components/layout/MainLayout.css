@@ -1,0 +1,104 @@
+/* Main Layout Component */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+/* Layout Body */
+.layout-body {
+  flex: 1;
+  padding: var(--spacing-6) 0;
+  position: relative;
+}
+
+/* Layout Grid - Mobile First */
+.layout-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  align-items: start;
+}
+
+/* Main Content Area */
+.main-content {
+  width: 100%;
+  min-width: 0; /* Prevent overflow in flex/grid layouts */
+}
+
+/* Tablet and up - 768px */
+@media (min-width: 768px) {
+  .layout-body {
+    padding: var(--spacing-8) 0;
+  }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--spacing-8);
+    align-items: start;
+  }
+
+  /* Main content takes first column */
+  .main-content {
+    grid-column: 1;
+  }
+
+  /* Sidebar takes second column */
+  .layout-grid > aside {
+    grid-column: 2;
+    position: sticky;
+    top: calc(var(--spacing-20) + var(--spacing-4)); /* Account for sticky header */
+    max-height: calc(100vh - var(--spacing-24));
+    overflow-y: auto;
+  }
+}
+
+/* Large screens - 1024px */
+@media (min-width: 1024px) {
+  .layout-body {
+    padding: var(--spacing-10) 0;
+  }
+
+  .layout-grid {
+    grid-template-columns: 1fr 420px;
+    gap: var(--spacing-10);
+  }
+}
+
+/* Extra large screens - 1280px */
+@media (min-width: 1280px) {
+  .layout-grid {
+    grid-template-columns: 1fr 480px;
+    gap: var(--spacing-12);
+  }
+
+  .layout-grid > aside {
+    top: calc(var(--spacing-24) + var(--spacing-4));
+  }
+}
+
+/* Ensure smooth scrolling for sidebar on larger screens */
+@media (min-width: 768px) {
+  .layout-grid > aside {
+    scrollbar-width: thin;
+  }
+
+  .layout-grid > aside::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .layout-grid > aside::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .layout-grid > aside::-webkit-scrollbar-thumb {
+    background-color: var(--color-neutral-300);
+    border-radius: var(--radius-full);
+  }
+
+  .layout-grid > aside::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-neutral-400);
+  }
+}

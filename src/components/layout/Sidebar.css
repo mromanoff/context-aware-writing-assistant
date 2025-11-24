@@ -1,0 +1,279 @@
+/* Sidebar Component */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  background-color: var(--color-background);
+  position: relative;
+}
+
+/* Mobile Toggle Button */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-primary-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+  box-shadow: var(--shadow-base);
+}
+
+.sidebar-toggle:hover {
+  background-color: var(--color-primary-700);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle-icon {
+  font-size: var(--font-size-lg);
+  line-height: 1;
+}
+
+.toggle-text {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Sidebar Content */
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  transition: max-height var(--transition-slow) var(--transition-ease-in-out),
+              opacity var(--transition-base) var(--transition-ease);
+  overflow: hidden;
+}
+
+/* Collapsed state on mobile */
+.sidebar.collapsed .sidebar-content {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Section Styling */
+.section-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* Metrics Section */
+.metrics-section {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.metric-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-600);
+  line-height: var(--line-height-tight);
+}
+
+/* Readability Section */
+.readability-section {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.readability-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.readability-score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background-color: var(--color-neutral-50);
+  border-radius: var(--radius-md);
+}
+
+.readability-score {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.readability-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.readability-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-2);
+  background-color: var(--color-neutral-50);
+  border-radius: var(--radius-sm);
+}
+
+.detail-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.detail-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Tone Section */
+.tone-section {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tone-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background: linear-gradient(135deg, var(--color-secondary-50) 0%, var(--color-primary-50) 100%);
+  border-radius: var(--radius-md);
+}
+
+.tone-emoji {
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+}
+
+.tone-label {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+}
+
+/* Details Section */
+.details-section {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.details-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-key {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Tablet and up - 768px */
+@media (min-width: 768px) {
+  /* Hide toggle button on larger screens */
+  .sidebar-toggle {
+    display: none;
+  }
+
+  /* Always show content on larger screens */
+  .sidebar-content {
+    max-height: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .sidebar.collapsed .sidebar-content {
+    max-height: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large screens - 1024px */
+@media (min-width: 1024px) {
+  .sidebar {
+    gap: var(--spacing-6);
+  }
+
+  .section-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .metrics-section,
+  .readability-section,
+  .tone-section,
+  .details-section {
+    padding: var(--spacing-5);
+  }
+}
