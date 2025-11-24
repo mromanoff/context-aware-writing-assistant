@@ -1,23 +1,14 @@
-import type { WritingMode } from '../../types'
+import { ModeSelector } from '../features'
 import './Header.css'
 
 export interface HeaderProps {
-  /** Current writing mode */
-  writingMode: WritingMode
-  /** Callback when writing mode changes */
-  onWritingModeChange: (mode: WritingMode) => void
   /** Current theme */
   theme?: 'light' | 'dark' | 'auto'
   /** Callback when theme changes (optional for now) */
   onThemeChange?: (theme: 'light' | 'dark' | 'auto') => void
 }
 
-export function Header({
-  writingMode,
-  onWritingModeChange,
-  theme = 'auto',
-  onThemeChange,
-}: HeaderProps) {
+export function Header({ theme = 'auto', onThemeChange }: HeaderProps) {
   return (
     <header className="header" role="banner">
       <div className="container">
@@ -31,24 +22,8 @@ export function Header({
 
           <nav className="header-nav" aria-label="Main navigation">
             <div className="header-controls">
-              {/* Writing Mode Selector */}
-              <div className="mode-selector">
-                <label htmlFor="writing-mode" className="control-label">
-                  Mode
-                </label>
-                <select
-                  id="writing-mode"
-                  value={writingMode}
-                  onChange={(e) => onWritingModeChange(e.target.value as WritingMode)}
-                  className="mode-select"
-                  aria-label="Select writing mode"
-                >
-                  <option value="technical">Technical</option>
-                  <option value="creative">Creative</option>
-                  <option value="business">Business</option>
-                  <option value="casual">Casual</option>
-                </select>
-              </div>
+              {/* Writing Mode Selector - now uses context */}
+              <ModeSelector variant="compact" />
 
               {/* Theme Toggle (optional for now) */}
               {onThemeChange && (
