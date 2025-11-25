@@ -16,3 +16,11 @@ export type { SuggestionCardProps } from './SuggestionCard'
 
 export { SuggestionsPanel } from './SuggestionsPanel'
 export type { SuggestionsPanelProps } from './SuggestionsPanel'
+
+// Readability
+export { ReadabilityScore } from './ReadabilityScore'
+export type { ReadabilityScoreProps } from './ReadabilityScore'
+
+// Tone
+export { ToneIndicator } from './ToneIndicator'
+export type { ToneIndicatorProps } from './ToneIndicator'

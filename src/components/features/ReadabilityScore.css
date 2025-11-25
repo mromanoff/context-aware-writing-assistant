@@ -1,0 +1,132 @@
+/* Readability Score Component */
+.readability-score {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+/* Header */
+.readability-score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.readability-score-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.readability-score-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+/* Progress Bar */
+.readability-score-bar {
+  height: 12px;
+  background-color: var(--color-neutral-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.readability-score-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-base) var(--transition-ease);
+  position: relative;
+}
+
+/* Color variants for progress bar */
+.readability-score-fill--green {
+  background: linear-gradient(90deg, var(--color-success-500), var(--color-success-600));
+}
+
+.readability-score-fill--yellow {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.readability-score-fill--orange {
+  background: linear-gradient(90deg, #fb923c, #f97316);
+}
+
+.readability-score-fill--red {
+  background: linear-gradient(90deg, var(--color-error-500), var(--color-error-600));
+}
+
+/* Level Info */
+.readability-score-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.readability-score-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+/* Color variants for label */
+.readability-score-label--green {
+  color: var(--color-success-700);
+}
+
+.readability-score-label--yellow {
+  color: #d97706;
+}
+
+.readability-score-label--orange {
+  color: #ea580c;
+}
+
+.readability-score-label--red {
+  color: var(--color-error-700);
+}
+
+.readability-score-description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .readability-score {
+    padding: var(--spacing-5);
+  }
+
+  .readability-score-bar {
+    height: 16px;
+  }
+}
+
+/* Animations */
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+}
+
+.readability-score-fill {
+  animation: fillBar 0.8s var(--transition-ease);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .readability-score-fill {
+    animation: none;
+    transition: none;
+  }
+}

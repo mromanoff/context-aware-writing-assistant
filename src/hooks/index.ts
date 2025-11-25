@@ -11,3 +11,6 @@ export { useWritingMode } from './useWritingMode'
 // Suggestions Hook
 export { useSuggestions } from './useSuggestions'
 export type { UseSuggestionsOptions, UseSuggestionsReturn } from './useSuggestions'
+
+// Debounce Hook
+export { useDebounce } from './useDebounce'

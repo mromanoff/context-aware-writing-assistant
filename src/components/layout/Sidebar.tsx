@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import type { Tone } from '../../types'
+import { useWritingMode } from '../../hooks'
+import { ReadabilityScore, ToneIndicator } from '../features'
+import type { Tone } from '../../utils/textAnalysis'
 import './Sidebar.css'
 
 export interface WritingStats {
@@ -32,40 +34,11 @@ export interface SidebarProps {
 
 export function Sidebar({ stats, onToggleCollapse }: SidebarProps) {
   const [isMobileCollapsed, setIsMobileCollapsed] = useState(false)
+  const { currentMode } = useWritingMode()
 
   const handleToggle = () => {
     setIsMobileCollapsed(!isMobileCollapsed)
     onToggleCollapse?.()
-  }
-
-  const getReadabilityLabel = (score: number): string => {
-    if (score >= 90) return 'Very Easy'
-    if (score >= 80) return 'Easy'
-    if (score >= 70) return 'Fairly Easy'
-    if (score >= 60) return 'Standard'
-    if (score >= 50) return 'Fairly Difficult'
-    if (score >= 30) return 'Difficult'
-    return 'Very Difficult'
-  }
-
-  const getReadabilityColor = (score: number): string => {
-    if (score >= 80) return 'var(--color-success-600)'
-    if (score >= 60) return 'var(--color-primary-600)'
-    if (score >= 40) return 'var(--color-warning-600)'
-    return 'var(--color-error-600)'
-  }
-
-  const getToneEmoji = (tone: Tone): string => {
-    const toneEmojis: Record<Tone, string> = {
-      formal: '🎩',
-      informal: '😊',
-      professional: '💼',
-      conversational: '💬',
-      academic: '🎓',
-      persuasive: '🎯',
-      neutral: '📝',
-    }
-    return toneEmojis[tone] || '📝'
   }
 
   return (
@@ -115,44 +88,21 @@ export function Sidebar({ stats, onToggleCollapse }: SidebarProps) {
 
         {/* Readability Score */}
         <section className="readability-section">
-          <h2 className="section-title">Readability</h2>
-          <div className="readability-card">
-            <div className="readability-score-container">
-              <div
-                className="readability-score"
-                style={{ color: getReadabilityColor(stats.readabilityScore) }}
-              >
-                {stats.readabilityScore > 0 ? Math.round(stats.readabilityScore) : '—'}
-              </div>
-              <div className="readability-label">
-                {stats.readabilityScore > 0 ? getReadabilityLabel(stats.readabilityScore) : 'N/A'}
-              </div>
-            </div>
-            <div className="readability-details">
-              <div className="detail-item">
-                <span className="detail-label">Grade Level</span>
-                <span className="detail-value">
-                  {stats.gradeLevel > 0 ? `${Math.round(stats.gradeLevel)}th` : '—'}
-                </span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">Reading Time</span>
-                <span className="detail-value">
-                  {stats.readingTime > 0 ? `${stats.readingTime} min` : '—'}
-                </span>
-              </div>
-            </div>
-          </div>
+          <ReadabilityScore score={stats.readabilityScore} />
         </section>
 
         {/* Tone Indicator */}
         <section className="tone-section">
-          <h2 className="section-title">Tone Analysis</h2>
-          <div className="tone-card">
-            <span className="tone-emoji" aria-hidden="true">
-              {getToneEmoji(stats.tone)}
-            </span>
-            <span className="tone-label">{stats.tone.charAt(0).toUpperCase() + stats.tone.slice(1)}</span>
+          <ToneIndicator tone={stats.tone} targetTone={currentMode} />
+        </section>
+
+        {/* Reading Time */}
+        <section className="reading-time-section">
+          <div className="reading-time-card">
+            <h3 className="reading-time-title">Reading Time</h3>
+            <div className="reading-time-value">
+              {stats.readingTime > 0 ? `${stats.readingTime} min` : '—'}
+            </div>
           </div>
         </section>
 
