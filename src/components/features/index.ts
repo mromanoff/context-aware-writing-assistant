@@ -24,3 +24,7 @@ export type { ReadabilityScoreProps } from './ReadabilityScore'
 // Tone
 export { ToneIndicator } from './ToneIndicator'
 export type { ToneIndicatorProps } from './ToneIndicator'
+
+// Auto Save
+export { AutoSaveIndicator } from './AutoSaveIndicator'
+export type { AutoSaveIndicatorProps } from './AutoSaveIndicator'

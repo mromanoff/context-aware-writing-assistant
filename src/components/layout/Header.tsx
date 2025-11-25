@@ -1,4 +1,5 @@
-import { ModeSelector } from '../features'
+import { ModeSelector, AutoSaveIndicator } from '../features'
+import { useWritingMode } from '../../hooks'
 import './Header.css'
 
 export interface HeaderProps {
@@ -9,6 +10,8 @@ export interface HeaderProps {
 }
 
 export function Header({ theme = 'auto', onThemeChange }: HeaderProps) {
+  const { isSaving, lastSaved } = useWritingMode()
+
   return (
     <header className="header" role="banner">
       <div className="container">
@@ -18,6 +21,8 @@ export function Header({ theme = 'auto', onThemeChange }: HeaderProps) {
               <span className="header-icon" aria-hidden="true">✍️</span>
               Writing Assistant
             </h1>
+            {/* Auto-save indicator */}
+            <AutoSaveIndicator isSaving={isSaving} lastSaved={lastSaved} />
           </div>
 
           <nav className="header-nav" aria-label="Main navigation">
