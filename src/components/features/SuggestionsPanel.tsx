@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SuggestionCard } from './SuggestionCard'
-import { LoadingSpinner } from '../common'
+import { ErrorMessage, LoadingSkeletonGroup } from '../common'
 import type { WritingSuggestion } from '../../types/api'
 import type { ApiError } from '../../types/api'
 import './SuggestionsPanel.css'
@@ -112,27 +112,20 @@ export function SuggestionsPanel({
       >
         {/* Loading State */}
         {loading && (
-          <div className="suggestions-panel-state">
-            <LoadingSpinner size="medium" label="Loading suggestions..." />
-            <p className="suggestions-panel-state-text">Analyzing your text...</p>
+          <div className="suggestions-panel-loading">
+            <LoadingSkeletonGroup type="list" count={3} />
           </div>
         )}
 
         {/* Error State */}
         {error && !loading && (
-          <div className="suggestions-panel-state suggestions-panel-state--error">
-            <span className="suggestions-panel-error-icon" aria-hidden="true">⚠️</span>
-            <p className="suggestions-panel-state-title">Failed to load suggestions</p>
-            <p className="suggestions-panel-state-text">{error.message}</p>
-            {onRetry && error.retryable && (
-              <button
-                type="button"
-                onClick={onRetry}
-                className="suggestions-panel-retry-button"
-              >
-                Try Again
-              </button>
-            )}
+          <div className="suggestions-panel-error">
+            <ErrorMessage
+              error={error}
+              action="load suggestions"
+              onRetry={onRetry}
+              showRetry={!!onRetry && error.retryable !== false}
+            />
           </div>
         )}
 
