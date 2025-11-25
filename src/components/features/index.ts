@@ -9,3 +9,10 @@ export type { EditorStatsProps, EditorStatsBarProps } from './EditorStats'
 // Mode Selector
 export { ModeSelector, ModePills } from './ModeSelector'
 export type { ModeSelectorProps, ModePillsProps } from './ModeSelector'
+
+// Suggestions
+export { SuggestionCard } from './SuggestionCard'
+export type { SuggestionCardProps } from './SuggestionCard'
+
+export { SuggestionsPanel } from './SuggestionsPanel'
+export type { SuggestionsPanelProps } from './SuggestionsPanel'

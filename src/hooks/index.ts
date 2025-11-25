@@ -7,3 +7,7 @@ export { useOpenAI } from './useOpenAI'
 
 // Writing Mode Hook
 export { useWritingMode } from './useWritingMode'
+
+// Suggestions Hook
+export { useSuggestions } from './useSuggestions'
+export type { UseSuggestionsOptions, UseSuggestionsReturn } from './useSuggestions'
