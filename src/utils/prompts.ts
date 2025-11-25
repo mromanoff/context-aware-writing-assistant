@@ -52,7 +52,11 @@ Provide suggestions that make the writing more approachable, engaging, and easy 
 }
 
 /**
- * Generate analysis prompt for text
+ * Generate analysis prompt for text that requests comprehensive analysis from OpenAI
+ *
+ * @param text - The text to analyze
+ * @param mode - Writing mode context that determines the focus of analysis
+ * @returns Formatted prompt string for OpenAI API requesting detailed analysis in JSON format
  */
 export function getAnalysisPrompt(text: string, mode: WritingMode): string {
   return `Analyze the following ${mode} writing and provide a detailed assessment.
@@ -88,7 +92,11 @@ Provide 3-5 most impactful suggestions. Be specific and actionable.`
 }
 
 /**
- * Generate suggestions prompt for text
+ * Generate suggestions prompt that requests specific writing improvements from OpenAI
+ *
+ * @param text - The text to get suggestions for
+ * @param mode - Writing mode context that determines the type of suggestions
+ * @returns Formatted prompt string for OpenAI API requesting 3-5 actionable suggestions in JSON format
  */
 export function getSuggestionsPrompt(text: string, mode: WritingMode): string {
   return `As a ${mode} writing expert, provide specific writing suggestions for the following text.
@@ -115,7 +123,12 @@ Be specific about what to change and why. Focus on ${mode}-appropriate improveme
 }
 
 /**
- * Generate improvement prompt for specific text
+ * Generate improvement prompt that requests an improved version of text from OpenAI
+ *
+ * @param text - The text to improve
+ * @param mode - Writing mode context that guides the improvement style
+ * @param focus - Optional specific area to focus on (e.g., "clarity", "conciseness")
+ * @returns Formatted prompt string for OpenAI API requesting improved text with explanation in JSON format
  */
 export function getImprovementPrompt(
   text: string,

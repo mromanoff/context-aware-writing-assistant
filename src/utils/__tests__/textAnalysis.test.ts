@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { calculateReadability, analyzeTone, detectComplexity, type Tone } from '../textAnalysis'
+import { calculateReadability, analyzeTone, detectComplexity } from '../textAnalysis'
 
 describe('calculateReadability', () => {
   it('returns 0 for empty string', () => {

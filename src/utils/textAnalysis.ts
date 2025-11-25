@@ -188,10 +188,14 @@ export function analyzeTone(text: string): Tone {
 }
 
 /**
- * Detect text complexity metrics
+ * Detect text complexity metrics including sentence length, word complexity, and more
  *
  * @param text - The text to analyze
- * @returns Complexity analysis
+ * @returns Complexity analysis object containing:
+ *   - avgSentenceLength: Average number of words per sentence
+ *   - complexWordPercentage: Percentage of words with 3+ syllables
+ *   - avgWordLength: Average word length in characters
+ *   - longestSentence: Length of the longest sentence in words
  */
 export function detectComplexity(text: string): ComplexityAnalysis {
   const trimmedText = text.trim()

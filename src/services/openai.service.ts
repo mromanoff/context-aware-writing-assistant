@@ -46,6 +46,9 @@ function getOpenAIClient(): OpenAI {
 
 /**
  * Sleep utility for retry delays
+ *
+ * @param ms - Number of milliseconds to wait
+ * @returns Promise that resolves after the specified delay
  */
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -53,6 +56,10 @@ function sleep(ms: number): Promise<void> {
 
 /**
  * Calculate exponential backoff delay
+ *
+ * @param attempt - Current retry attempt number (0-based)
+ * @param baseDelay - Base delay in milliseconds
+ * @returns Calculated delay in milliseconds using exponential backoff
  */
 function getBackoffDelay(attempt: number, baseDelay: number): number {
   return baseDelay * Math.pow(2, attempt)
@@ -95,7 +102,13 @@ function createApiError(error: unknown): ApiError {
 }
 
 /**
- * Make API request with retry logic
+ * Make API request with retry logic and exponential backoff
+ *
+ * @template T - Type of the expected response
+ * @param requestFn - Async function that makes the API request
+ * @param options - Optional configuration for retries and timeout
+ * @returns Promise that resolves with the API response
+ * @throws {ApiError} When request fails after all retries
  */
 async function makeRequestWithRetry<T>(
   requestFn: () => Promise<T>,
@@ -131,7 +144,12 @@ async function makeRequestWithRetry<T>(
 }
 
 /**
- * Parse JSON response safely
+ * Parse JSON response safely, extracting from markdown code blocks if present
+ *
+ * @template T - Type of the expected parsed object
+ * @param content - Raw content string that may contain JSON or markdown-wrapped JSON
+ * @param fallback - Fallback value to return if parsing fails
+ * @returns Parsed object of type T or the fallback value
  */
 function parseJsonResponse<T>(content: string, fallback: T): T {
   try {
@@ -146,7 +164,14 @@ function parseJsonResponse<T>(content: string, fallback: T): T {
 }
 
 /**
- * Analyze text with OpenAI
+ * Analyze text with OpenAI to get comprehensive writing analysis
+ *
+ * @param text - The text to analyze (must not be empty)
+ * @param mode - Writing mode context (creative, technical, professional, casual)
+ * @param options - Optional API request configuration (maxRetries, timeout)
+ * @returns Promise resolving to detailed analysis including tone, readability, suggestions
+ * @throws {Error} When text is empty
+ * @throws {ApiError} When API request fails after all retries
  */
 export async function analyzeText(
   text: string,
@@ -204,7 +229,13 @@ export async function analyzeText(
 }
 
 /**
- * Get writing suggestions
+ * Get writing suggestions from OpenAI for the provided text
+ *
+ * @param text - The text to get suggestions for (returns empty array if empty)
+ * @param mode - Writing mode context (creative, technical, professional, casual)
+ * @param options - Optional API request configuration (maxRetries, timeout)
+ * @returns Promise resolving to array of writing suggestions with improvements
+ * @throws {ApiError} When API request fails after all retries
  */
 export async function getSuggestions(
   text: string,
@@ -247,7 +278,9 @@ export async function getSuggestions(
 }
 
 /**
- * Check if API key is configured
+ * Check if OpenAI API key is configured in environment variables
+ *
+ * @returns True if VITE_OPENAI_API_KEY is set, false otherwise
  */
 export function isApiKeyConfigured(): boolean {
   return !!import.meta.env.VITE_OPENAI_API_KEY
