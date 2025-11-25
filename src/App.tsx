@@ -1,8 +1,10 @@
+import { useMemo } from 'react'
 import { WritingProvider } from './contexts'
 import { MainLayout, Header, Sidebar, Footer } from './components/layout'
 import type { WritingStats } from './components/layout'
 import { TextEditor, SuggestionsPanel } from './components/features'
-import { useTextAnalysis, useWritingMode, useSuggestions } from './hooks'
+import { useTextAnalysis, useWritingMode, useSuggestions, useDebounce } from './hooks'
+import { calculateReadability, analyzeTone } from './utils/textAnalysis'
 import './App.css'
 
 /**
@@ -12,8 +14,21 @@ import './App.css'
 function AppContent() {
   const { currentMode, text, setText } = useWritingMode()
 
-  // Get real-time text analysis
+  // Get real-time text analysis (word count, character count, etc.)
   const textStats = useTextAnalysis(text)
+
+  // Debounce text for expensive calculations (500ms)
+  const debouncedText = useDebounce(text, 500)
+
+  // Calculate readability score with useMemo (expensive calculation)
+  const readabilityScore = useMemo(() => {
+    return calculateReadability(debouncedText)
+  }, [debouncedText])
+
+  // Analyze tone with useMemo
+  const tone = useMemo(() => {
+    return analyzeTone(debouncedText)
+  }, [debouncedText])
 
   // Get AI-powered suggestions
   const {
@@ -28,12 +43,12 @@ function AppContent() {
     minTextLength: 100,
   })
 
-  // Combine with additional stats (readability, tone, grade level will be added in later steps)
+  // Combine with real-time analysis stats
   const stats: WritingStats = {
     ...textStats,
-    readabilityScore: 0, // Will be implemented in later step
-    tone: 'neutral', // Will be implemented in later step
-    gradeLevel: 0, // Will be implemented in later step
+    readabilityScore,
+    tone,
+    gradeLevel: 0, // Can be calculated from readability score if needed
   }
 
   /**

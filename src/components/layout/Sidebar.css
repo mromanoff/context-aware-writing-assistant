@@ -203,6 +203,38 @@
   text-transform: capitalize;
 }
 
+/* Reading Time Section */
+.reading-time-section {
+  /* Section wrapper */
+}
+
+.reading-time-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.reading-time-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.reading-time-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-600);
+  line-height: 1;
+}
+
 /* Details Section */
 .details-section {
   padding: var(--spacing-4);
@@ -273,7 +305,12 @@
   .metrics-section,
   .readability-section,
   .tone-section,
+  .reading-time-section,
   .details-section {
+    padding: var(--spacing-5);
+  }
+
+  .reading-time-card {
     padding: var(--spacing-5);
   }
 }
