@@ -14,3 +14,6 @@ export type { UseSuggestionsOptions, UseSuggestionsReturn } from './useSuggestio
 
 // Debounce Hook
 export { useDebounce } from './useDebounce'
+
+// LocalStorage Hook
+export { useLocalStorage } from './useLocalStorage'

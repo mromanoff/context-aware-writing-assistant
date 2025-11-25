@@ -1,6 +1,7 @@
-import { createContext, useState, useCallback, ReactNode } from 'react'
+import { createContext, useState, useCallback, useEffect, useRef, ReactNode } from 'react'
 import type { WritingMode } from '../types'
 import type { AnalysisResult } from '../types/api'
+import { saveText, loadText, saveMode, loadMode, getLastSaved } from '../services/storage.service'
 
 /**
  * Writing context state interface
@@ -14,6 +15,10 @@ export interface WritingContextState {
   analysisResult: AnalysisResult | null
   /** Whether analysis is in progress */
   isAnalyzing: boolean
+  /** Whether currently saving */
+  isSaving: boolean
+  /** Last saved timestamp */
+  lastSaved: Date | null
 }
 
 /**
@@ -45,6 +50,8 @@ const defaultContextValue: WritingContextType = {
   text: '',
   analysisResult: null,
   isAnalyzing: false,
+  isSaving: false,
+  lastSaved: null,
   setMode: () => {
     throw new Error('WritingContext not initialized')
   },
@@ -80,23 +87,65 @@ export interface WritingProviderProps {
 
 /**
  * Writing Context Provider
- * Provides global state for writing mode, text, and analysis
+ * Provides global state for writing mode, text, and analysis with persistence
  */
 export function WritingProvider({
   children,
   initialMode = 'casual',
   initialText = '',
 }: WritingProviderProps) {
-  const [currentMode, setCurrentMode] = useState<WritingMode>(initialMode)
-  const [text, setText] = useState<string>(initialText)
+  // Load initial state from localStorage
+  const [currentMode, setCurrentMode] = useState<WritingMode>(() => {
+    const savedMode = loadMode()
+    return savedMode || initialMode
+  })
+
+  const [text, setTextState] = useState<string>(() => {
+    const savedText = loadText()
+    return savedText || initialText
+  })
+
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false)
+  const [isSaving, setIsSaving] = useState<boolean>(false)
+  const [lastSaved, setLastSaved] = useState<Date | null>(() => {
+    return getLastSaved()
+  })
+
+  // Debounce timer for auto-save
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const AUTO_SAVE_DELAY = 2000 // 2 seconds
 
   /**
-   * Set writing mode
+   * Set text with auto-save
+   */
+  const setText = useCallback((newText: string) => {
+    setTextState(newText)
+
+    // Clear existing timer
+    if (saveTimerRef.current) {
+      clearTimeout(saveTimerRef.current)
+    }
+
+    // Set saving state
+    setIsSaving(true)
+
+    // Debounce save
+    saveTimerRef.current = setTimeout(() => {
+      const success = saveText(newText)
+      if (success) {
+        setLastSaved(new Date())
+      }
+      setIsSaving(false)
+    }, AUTO_SAVE_DELAY)
+  }, [])
+
+  /**
+   * Set writing mode with persistence
    */
   const setMode = useCallback((mode: WritingMode) => {
     setCurrentMode(mode)
+    saveMode(mode)
   }, [])
 
   /**
@@ -107,12 +156,23 @@ export function WritingProvider({
     setIsAnalyzing(false)
   }, [])
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimerRef.current) {
+        clearTimeout(saveTimerRef.current)
+      }
+    }
+  }, [])
+
   const value: WritingContextType = {
     // State
     currentMode,
     text,
     analysisResult,
     isAnalyzing,
+    isSaving,
+    lastSaved,
     // Actions
     setMode,
     setText,
