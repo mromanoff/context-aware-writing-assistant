@@ -1,5 +1,6 @@
 import { useState, cloneElement, isValidElement, type ReactNode } from 'react'
 import { MobileDrawer } from './MobileDrawer'
+import { SkipLink } from '../common'
 import { useMediaQuery } from '../../hooks'
 import './MainLayout.css'
 
@@ -26,9 +27,7 @@ export function MainLayout({ header, sidebar, children, footer }: MainLayoutProp
   return (
     <div className="main-layout">
       {/* Skip to main content link for accessibility */}
-      <a href="#main-content" className="skip-to-main">
-        Skip to main content
-      </a>
+      <SkipLink href="#main-content">Skip to main content</SkipLink>
 
       {/* Header */}
       {headerWithProps}

@@ -21,3 +21,7 @@ export { useLocalStorage } from './useLocalStorage'
 // Media Query Hook
 export { useMediaQuery, useMediaQueryMatch, BREAKPOINTS } from './useMediaQuery'
 export type { MediaQueryResult } from './useMediaQuery'
+
+// Keyboard Shortcuts Hook
+export { useKeyboardShortcuts, useKeyboardShortcut } from './useKeyboardShortcuts'
+export type { KeyboardShortcut, ShortcutHandler } from './useKeyboardShortcuts'

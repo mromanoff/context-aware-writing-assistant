@@ -1,0 +1,41 @@
+/* Skip Link Component */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-primary-600);
+  color: white;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+  box-shadow: var(--shadow-lg);
+  transition: top var(--transition-fast) var(--transition-ease);
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.skip-link:hover {
+  background-color: var(--color-primary-700);
+}
+
+.skip-link:active {
+  background-color: var(--color-primary-800);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .skip-link {
+    outline: 2px solid currentColor;
+  }
+
+  .skip-link:focus {
+    outline-width: 4px;
+  }
+}
