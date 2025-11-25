@@ -260,8 +260,13 @@ export async function getSuggestions(
       response_format: { type: 'json_object' },
     })
 
-    const content = completion.choices[0]?.message?.content || '[]'
-    const suggestions = parseJsonResponse<Partial<WritingSuggestion>[]>(content, [])
+    const content = completion.choices[0]?.message?.content || '{"suggestions":[]}'
+    const response = parseJsonResponse<{ suggestions?: Partial<WritingSuggestion>[] }>(
+      content,
+      { suggestions: [] }
+    )
+
+    const suggestions = response.suggestions || []
 
     return suggestions.map((s, index) => ({
       id: `suggestion-${Date.now()}-${index}`,
