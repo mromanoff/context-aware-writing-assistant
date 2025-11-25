@@ -20,7 +20,7 @@ import {
  * OpenAI Service Configuration
  */
 const CONFIG = {
-  model: 'gpt-4-turbo-preview',
+  model: 'gpt-4o-mini', // Updated to current model (was gpt-4-turbo-preview)
   maxTokens: 2000,
   temperature: 0.7,
   maxRetries: 3,
