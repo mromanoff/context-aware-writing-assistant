@@ -59,7 +59,7 @@ export function SuggestionCard({
   const hasReplacement = !!suggestedText || (alternatives && alternatives.length > 0)
 
   return (
-    <div className={`suggestion-card suggestion-card--${severity}`}>
+    <div className={`suggestion-card suggestion-card--${severity} animate-slide-in-bottom`}>
       {/* Header */}
       <div className="suggestion-card-header">
         <Badge variant={getSeverityVariant(severity)} text={getCategoryDisplayName(category)} />
