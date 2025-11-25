@@ -48,6 +48,7 @@ function AppContent() {
   } = useSuggestions({
     debounceMs: 3000,
     minTextLength: 100,
+    autoFetch: true, // Enable automatic suggestion fetching
   })
 
   // Announce when suggestions are loaded

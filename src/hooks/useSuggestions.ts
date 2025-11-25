@@ -51,13 +51,20 @@ export function useSuggestions(
   options: UseSuggestionsOptions = {}
 ): UseSuggestionsReturn {
   const config = { ...DEFAULT_OPTIONS, ...options }
-  const { currentMode } = useWritingMode()
-  const { fetchSuggestions: fetchFromAPI, loading, error } = useOpenAI()
+  const { currentMode, text } = useWritingMode()
+  const { fetchSuggestions: fetchFromAPI, suggestions: apiSuggestions, loading, error } = useOpenAI()
 
   const [suggestions, setSuggestions] = useState<WritingSuggestion[]>([])
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set())
   const lastTextRef = useRef<string>('')
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Update local suggestions when API returns new ones
+  useEffect(() => {
+    if (apiSuggestions.length > 0) {
+      setSuggestions(apiSuggestions)
+    }
+  }, [apiSuggestions])
 
   /**
    * Fetch suggestions from API
@@ -79,7 +86,7 @@ export function useSuggestions(
 
       try {
         await fetchFromAPI(text, currentMode)
-        // Suggestions will be updated via the context
+        // Suggestions will be updated via useEffect watching apiSuggestions
       } catch (error) {
         console.error('Failed to fetch suggestions:', error)
       }
@@ -169,6 +176,13 @@ export function useSuggestions(
     const severityOrder = { error: 0, warning: 1, info: 2, suggestion: 3 }
     return severityOrder[a.severity] - severityOrder[b.severity]
   })
+
+  // Auto-fetch suggestions when text changes
+  useEffect(() => {
+    if (config.autoFetch && text && text.trim().length >= config.minTextLength!) {
+      debouncedFetch(text)
+    }
+  }, [text, config.autoFetch, config.minTextLength, debouncedFetch])
 
   // Cleanup on unmount
   useEffect(() => {

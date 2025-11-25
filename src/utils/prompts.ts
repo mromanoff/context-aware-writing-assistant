@@ -107,17 +107,19 @@ ${text}
 """
 
 Focus on the most impactful improvements for ${mode} writing. Provide 3-5 concrete, actionable suggestions in JSON format:
-[
-  {
-    "category": "grammar|spelling|style|clarity|conciseness|tone|structure",
-    "severity": "error|warning|info|suggestion",
-    "message": "<specific issue>",
-    "originalText": "<exact text to change>",
-    "suggestedText": "<your suggestion>",
-    "alternatives": [<2-3 alternatives if applicable>],
-    "explanation": "<brief why this helps>"
-  }
-]
+{
+  "suggestions": [
+    {
+      "category": "grammar|spelling|style|clarity|conciseness|tone|structure",
+      "severity": "error|warning|info|suggestion",
+      "message": "<specific issue>",
+      "originalText": "<exact text to change>",
+      "suggestedText": "<your suggestion>",
+      "alternatives": [<2-3 alternatives if applicable>],
+      "explanation": "<brief why this helps>"
+    }
+  ]
+}
 
 Be specific about what to change and why. Focus on ${mode}-appropriate improvements.`
 }
