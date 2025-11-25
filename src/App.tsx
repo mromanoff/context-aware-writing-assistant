@@ -3,6 +3,7 @@ import { WritingProvider } from './contexts'
 import { MainLayout, Header, Sidebar, Footer } from './components/layout'
 import type { WritingStats } from './components/layout'
 import { TextEditor, SuggestionsPanel } from './components/features'
+import { ErrorBoundary } from './components/common'
 import { useTextAnalysis, useWritingMode, useSuggestions, useDebounce } from './hooks'
 import { calculateReadability, analyzeTone } from './utils/textAnalysis'
 import './App.css'
@@ -93,13 +94,15 @@ function AppContent() {
 }
 
 /**
- * App component with context provider
+ * App component with context provider and error boundary
  */
 function App() {
   return (
-    <WritingProvider initialMode="casual" initialText="">
-      <AppContent />
-    </WritingProvider>
+    <ErrorBoundary context="App">
+      <WritingProvider initialMode="casual" initialText="">
+        <AppContent />
+      </WritingProvider>
+    </ErrorBoundary>
   )
 }
 
