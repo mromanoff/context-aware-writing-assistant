@@ -10,3 +10,6 @@ export type { MainLayoutProps } from './MainLayout'
 
 export { Footer } from './Footer'
 export type { FooterProps } from './Footer'
+
+export { MobileDrawer } from './MobileDrawer'
+export type { MobileDrawerProps } from './MobileDrawer'

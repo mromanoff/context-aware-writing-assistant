@@ -1,0 +1,167 @@
+/* Mobile Drawer Component */
+
+/* Overlay */
+.mobile-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn var(--transition-base) var(--transition-ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 85%;
+  max-width: 400px;
+  background-color: var(--color-background);
+  z-index: 1000;
+  overflow-y: auto;
+  box-shadow: var(--shadow-2xl);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Position variants */
+.mobile-drawer--left {
+  left: 0;
+  animation: slideInLeft var(--transition-base) var(--transition-ease);
+}
+
+.mobile-drawer--right {
+  right: 0;
+  animation: slideInRight var(--transition-base) var(--transition-ease);
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Close button */
+.mobile-drawer-close {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-ease);
+  z-index: 10;
+}
+
+.mobile-drawer-close:hover {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.mobile-drawer-close:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.mobile-drawer-close:active {
+  background-color: var(--color-neutral-200);
+}
+
+/* Content */
+.mobile-drawer-content {
+  flex: 1;
+  padding: var(--spacing-6) var(--spacing-4);
+  padding-top: calc(var(--spacing-6) + 44px); /* Space for close button */
+  overflow-y: auto;
+}
+
+/* Scrollbar */
+.mobile-drawer-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-drawer-content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.mobile-drawer-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-300);
+  border-radius: var(--radius-full);
+}
+
+.mobile-drawer-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-400);
+}
+
+/* Firefox Scrollbar */
+.mobile-drawer-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-300) transparent;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-drawer,
+  .mobile-drawer-overlay {
+    animation: none;
+  }
+
+  .mobile-drawer--left {
+    transform: none;
+  }
+
+  .mobile-drawer--right {
+    transform: none;
+  }
+}
+
+/* Touch optimization */
+@media (hover: none) {
+  .mobile-drawer-close:hover {
+    background-color: transparent;
+  }
+
+  .mobile-drawer-close:active {
+    background-color: var(--color-neutral-100);
+  }
+}
+
+/* Wide screens - hide drawer (shouldn't be used) */
+@media (min-width: 1024px) {
+  .mobile-drawer,
+  .mobile-drawer-overlay {
+    display: none;
+  }
+}

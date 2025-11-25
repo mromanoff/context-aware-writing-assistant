@@ -1,4 +1,6 @@
-import type { ReactNode } from 'react'
+import { useState, cloneElement, isValidElement, type ReactNode } from 'react'
+import { MobileDrawer } from './MobileDrawer'
+import { useMediaQuery } from '../../hooks'
 import './MainLayout.css'
 
 export interface MainLayoutProps {
@@ -13,6 +15,14 @@ export interface MainLayoutProps {
 }
 
 export function MainLayout({ header, sidebar, children, footer }: MainLayoutProps) {
+  const { isMobile } = useMediaQuery()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Clone header with onMenuToggle prop if it's a valid React element
+  const headerWithProps = isValidElement(header)
+    ? cloneElement(header, { onMenuToggle: () => setIsMobileMenuOpen(!isMobileMenuOpen) } as any)
+    : header
+
   return (
     <div className="main-layout">
       {/* Skip to main content link for accessibility */}
@@ -21,7 +31,7 @@ export function MainLayout({ header, sidebar, children, footer }: MainLayoutProp
       </a>
 
       {/* Header */}
-      {header}
+      {headerWithProps}
 
       {/* Main content area with sidebar */}
       <div className="layout-body">
@@ -32,11 +42,26 @@ export function MainLayout({ header, sidebar, children, footer }: MainLayoutProp
               {children}
             </main>
 
-            {/* Sidebar */}
-            {sidebar}
+            {/* Sidebar - Desktop */}
+            {!isMobile && (
+              <aside className="layout-sidebar">
+                {sidebar}
+              </aside>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Sidebar - Mobile Drawer */}
+      {isMobile && (
+        <MobileDrawer
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+          position="right"
+        >
+          {sidebar}
+        </MobileDrawer>
+      )}
 
       {/* Footer */}
       {footer}

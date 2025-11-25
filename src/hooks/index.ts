@@ -17,3 +17,7 @@ export { useDebounce } from './useDebounce'
 
 // LocalStorage Hook
 export { useLocalStorage } from './useLocalStorage'
+
+// Media Query Hook
+export { useMediaQuery, useMediaQueryMatch, BREAKPOINTS } from './useMediaQuery'
+export type { MediaQueryResult } from './useMediaQuery'

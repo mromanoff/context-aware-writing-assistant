@@ -1,5 +1,5 @@
 import { ModeSelector, AutoSaveIndicator } from '../features'
-import { useWritingMode } from '../../hooks'
+import { useWritingMode, useMediaQuery } from '../../hooks'
 import './Header.css'
 
 export interface HeaderProps {
@@ -7,19 +7,39 @@ export interface HeaderProps {
   theme?: 'light' | 'dark' | 'auto'
   /** Callback when theme changes (optional for now) */
   onThemeChange?: (theme: 'light' | 'dark' | 'auto') => void
+  /** Callback when mobile menu is toggled */
+  onMenuToggle?: () => void
 }
 
-export function Header({ theme = 'auto', onThemeChange }: HeaderProps) {
+export function Header({ theme = 'auto', onThemeChange, onMenuToggle }: HeaderProps) {
   const { isSaving, lastSaved } = useWritingMode()
+  const { isMobile } = useMediaQuery()
 
   return (
     <header className="header" role="banner">
       <div className="container">
         <div className="header-content">
+          {/* Mobile menu button */}
+          {isMobile && onMenuToggle && (
+            <button
+              type="button"
+              onClick={onMenuToggle}
+              className="header-menu-button"
+              aria-label="Toggle navigation menu"
+              aria-expanded="false"
+            >
+              <span className="header-menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          )}
+
           <div className="header-logo">
             <h1 className="header-title">
               <span className="header-icon" aria-hidden="true">✍️</span>
-              Writing Assistant
+              <span className="header-title-text">Writing Assistant</span>
             </h1>
             {/* Auto-save indicator */}
             <AutoSaveIndicator isSaving={isSaving} lastSaved={lastSaved} />
