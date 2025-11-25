@@ -105,6 +105,7 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-primary-600);
   line-height: var(--line-height-tight);
+  transition: opacity 200ms ease-out;
 }
 
 /* Readability Section */

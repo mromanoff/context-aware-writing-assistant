@@ -47,7 +47,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: all var(--transition-fast) var(--transition-ease);
+  transition: all 200ms ease-out;
   pointer-events: none;
   user-select: none;
   min-width: 140px;

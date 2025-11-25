@@ -4,8 +4,8 @@ import { MainLayout, Header, Sidebar, Footer } from './components/layout'
 import type { WritingStats } from './components/layout'
 import { TextEditor, SuggestionsPanel } from './components/features'
 import type { TextEditorHandle } from './components/features'
-import { ErrorBoundary, LiveRegion } from './components/common'
-import { useTextAnalysis, useWritingMode, useSuggestions, useDebounce, useKeyboardShortcuts } from './hooks'
+import { ErrorBoundary, LiveRegion, ToastContainer } from './components/common'
+import { useTextAnalysis, useWritingMode, useSuggestions, useDebounce, useKeyboardShortcuts, useToast, ToastProvider } from './hooks'
 import { calculateReadability, analyzeTone } from './utils/textAnalysis'
 import { saveText } from './services/storage.service'
 import './App.css'
@@ -18,6 +18,8 @@ function AppContent() {
   const { currentMode, text, setText, isSaving, lastSaved } = useWritingMode()
   const editorRef = useRef<TextEditorHandle>(null)
   const [announcement, setAnnouncement] = useState('')
+  const { toasts, showSuccess } = useToast()
+  const [isInitialMount, setIsInitialMount] = useState(true)
 
   // Get real-time text analysis (word count, character count, etc.)
   const textStats = useTextAnalysis(text)
@@ -59,8 +61,24 @@ function AppContent() {
   useEffect(() => {
     if (!isSaving && lastSaved) {
       setAnnouncement('Document saved')
+      showSuccess('Document saved successfully!')
     }
-  }, [isSaving, lastSaved])
+  }, [isSaving, lastSaved, showSuccess])
+
+  // Show success when mode changes (skip initial mount)
+  useEffect(() => {
+    if (isInitialMount) {
+      setIsInitialMount(false)
+    } else {
+      const modeNames: Record<typeof currentMode, string> = {
+        technical: 'Technical',
+        creative: 'Creative',
+        business: 'Business',
+        casual: 'Casual',
+      }
+      showSuccess(`Switched to ${modeNames[currentMode]} mode`)
+    }
+  }, [currentMode, isInitialMount, showSuccess])
 
   // Combine with real-time analysis stats
   const stats: WritingStats = {
@@ -77,6 +95,7 @@ function AppContent() {
     const updatedText = applySuggestion(suggestion, text)
     setText(updatedText)
     setAnnouncement('Suggestion applied')
+    showSuccess('Suggestion applied successfully!')
   }
 
   // Keyboard shortcuts
@@ -156,6 +175,9 @@ function AppContent() {
 
       {/* ARIA Live Region for announcements */}
       <LiveRegion message={announcement} politeness="polite" clearAfter={3000} />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} position="top" />
     </>
   )
 }
@@ -166,9 +188,11 @@ function AppContent() {
 function App() {
   return (
     <ErrorBoundary context="App">
-      <WritingProvider initialMode="casual" initialText="">
-        <AppContent />
-      </WritingProvider>
+      <ToastProvider>
+        <WritingProvider initialMode="casual" initialText="">
+          <AppContent />
+        </WritingProvider>
+      </ToastProvider>
     </ErrorBoundary>
   )
 }

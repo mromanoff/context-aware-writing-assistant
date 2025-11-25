@@ -1,0 +1,140 @@
+/* Toast Container */
+.toast-container {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-index-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  pointer-events: none;
+  max-width: 500px;
+  width: 100%;
+}
+
+.toast-container--top {
+  top: 0;
+}
+
+.toast-container--bottom {
+  bottom: 0;
+  flex-direction: column-reverse;
+}
+
+/* Toast Base */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid;
+  pointer-events: auto;
+  min-height: 56px;
+}
+
+/* Toast Icon */
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+/* Toast Message */
+.toast-message {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+}
+
+/* Toast Dismiss Button */
+.toast-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  flex-shrink: 0;
+}
+
+.toast-dismiss:hover {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.toast-dismiss:active {
+  transform: scale(0.95);
+}
+
+/* Toast Type Variants */
+.toast--success {
+  border-left-color: var(--color-success-600);
+}
+
+.toast--success .toast-icon {
+  background-color: var(--color-success-100);
+  color: var(--color-success-700);
+}
+
+.toast--error {
+  border-left-color: var(--color-error-600);
+}
+
+.toast--error .toast-icon {
+  background-color: var(--color-error-100);
+  color: var(--color-error-700);
+}
+
+.toast--warning {
+  border-left-color: var(--color-warning-600);
+}
+
+.toast--warning .toast-icon {
+  background-color: var(--color-warning-100);
+  color: var(--color-warning-700);
+}
+
+.toast--info {
+  border-left-color: var(--color-primary-600);
+}
+
+.toast--info .toast-icon {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .toast-container {
+    max-width: calc(100% - var(--spacing-4) * 2);
+  }
+
+  .toast {
+    padding: var(--spacing-2) var(--spacing-3);
+    min-height: 48px;
+  }
+
+  .toast-message {
+    font-size: var(--font-size-xs);
+  }
+}
