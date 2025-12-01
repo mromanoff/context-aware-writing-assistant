@@ -86,7 +86,7 @@
 .suggestions-panel-content {
   flex: 1;
   overflow-y: auto;
-  padding: var(--spacing-4);
+  padding-top: var(--spacing-4);
   min-height: 0;
 }
 
@@ -189,10 +189,6 @@
 
   .suggestions-panel-title {
     font-size: var(--font-size-xl);
-  }
-
-  .suggestions-panel-content {
-    padding: var(--spacing-5);
   }
 
   .suggestions-panel-list {

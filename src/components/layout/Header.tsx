@@ -3,6 +3,8 @@ import { useWritingMode, useMediaQuery } from '../../hooks'
 import './Header.css'
 
 export interface HeaderProps {
+  /** Application name */
+  appName?: string
   /** Current theme */
   theme?: 'light' | 'dark' | 'auto'
   /** Callback when theme changes (optional for now) */
@@ -11,7 +13,12 @@ export interface HeaderProps {
   onMenuToggle?: () => void
 }
 
-export function Header({ theme = 'auto', onThemeChange, onMenuToggle }: HeaderProps) {
+export function Header({
+                           theme = 'auto',
+                           onThemeChange,
+                           onMenuToggle,
+                           appName = 'Context-Aware Writing Assistant',
+}: HeaderProps) {
   const { isSaving, lastSaved } = useWritingMode()
   const { isMobile } = useMediaQuery()
 
@@ -39,7 +46,7 @@ export function Header({ theme = 'auto', onThemeChange, onMenuToggle }: HeaderPr
           <div className="header-logo">
             <h1 className="header-title">
               <span className="header-icon" aria-hidden="true">✍️</span>
-              <span className="header-title-text">Writing Assistant</span>
+              <span className="header-title-text">{appName}</span>
             </h1>
             {/* Auto-save indicator */}
             <AutoSaveIndicator isSaving={isSaving} lastSaved={lastSaved} />
