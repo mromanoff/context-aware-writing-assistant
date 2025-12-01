@@ -9,7 +9,7 @@
 /* Layout Body */
 .layout-body {
   flex: 1;
-  padding: var(--spacing-6) 0;
+  padding: var(--spacing-4) 0;
   position: relative;
 }
 
@@ -30,13 +30,13 @@
 /* Tablet and up - 768px */
 @media (min-width: 768px) {
   .layout-body {
-    padding: var(--spacing-8) 0;
+    padding: var(--spacing-4) 0;
   }
 
   .layout-grid {
     display: grid;
     grid-template-columns: 1fr 400px;
-    gap: var(--spacing-8);
+    gap: var(--spacing-4);
     align-items: start;
   }
 
@@ -58,12 +58,12 @@
 /* Large screens - 1024px */
 @media (min-width: 1024px) {
   .layout-body {
-    padding: var(--spacing-10) 0;
+    padding: var(--spacing-4) 0;
   }
 
   .layout-grid {
     grid-template-columns: 1fr 420px;
-    gap: var(--spacing-10);
+    gap: var(--spacing-4);
   }
 }
 
@@ -71,7 +71,7 @@
 @media (min-width: 1280px) {
   .layout-grid {
     grid-template-columns: 1fr 480px;
-    gap: var(--spacing-12);
+    gap: var(--spacing-4);
   }
 
   .layout-sidebar {

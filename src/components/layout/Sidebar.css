@@ -51,6 +51,7 @@
   transition: max-height var(--transition-slow) var(--transition-ease-in-out),
               opacity var(--transition-base) var(--transition-ease);
   overflow: hidden;
+    padding-bottom: var(--spacing-4);
 }
 
 /* Collapsed state on mobile */
